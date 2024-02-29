@@ -130,6 +130,7 @@ class LogisticRegressor(BaseRegressor):
             The predicted labels (y_pred) for given X.
         """
         # take the dot product of weights and transpose of input values X
+        
         w = np.dog(self.W, np.transpose(X))
         return 1 / (1 + np.exp(w * -1))
     
@@ -146,6 +147,8 @@ class LogisticRegressor(BaseRegressor):
             The mean loss (a single number).
         """
         # calculate binary cross entropy based on true and predicted labels
+        # the BCE function punishes values that are far from the true values
+
         binary_cross_entropy = np.mean(
             ((y_true * np.log(y_pred)) + 
             ((1 - y_true) * np.log(1 - y_pred))) * -1

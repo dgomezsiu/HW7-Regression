@@ -129,10 +129,23 @@ class LogisticRegressor(BaseRegressor):
         Returns: 
             The predicted labels (y_pred) for given X.
         """
-        # take the dot product of weights and transpose of input values X
+        
+        # pad with ones if matrix does not already have
 
-        w = np.dot(self.W, np.transpose(X))
-        return 1 / (1 + np.exp(w * -1))
+        if X.shape[1] == self.num_feats:
+            X = np.hstack(
+                [X, np.ones((X.shape[0], 1))]
+                )
+        
+        # make a prediction based on the dot product of feature values and weights
+        
+        y_pred = 1 / (1 + np.exp(-1 * X.dot(self.W)))
+        
+        # round predicted values to the nearest integer value and return
+
+        return np.asarray(np.rint(y_pred), dtype = 'int')
+        
+        
     
     def loss_function(self, y_true, y_pred) -> float:
         """
@@ -146,13 +159,18 @@ class LogisticRegressor(BaseRegressor):
         Returns: 
             The mean loss (a single number).
         """
-        # calculate binary cross entropy based on true and predicted labels
-        # the BCE function punishes values that are far from the true values
+        # limit values
 
-        binary_cross_entropy = np.mean(
-            ((y_true * np.log(y_pred)) + 
-            ((1 - y_true) * np.log(1 - y_pred))) * -1
-        )
+        y_pred = np.clip(y_pred, 1e-9, 1 - 1e-9)
+
+        # calculate losses for zero and one values
+
+        y_pred_zero = y_true * np.log(y_pred)
+        y_pred_one = (1 - y_true) * np.log(1 - y_pred)
+
+        # return the binary cross entropy
+
+        binary_cross_entropy = -1 * np.mean(y_pred_one + y_pred_zero)
         return binary_cross_entropy
         
     def calculate_gradient(self, y_true, X) -> np.ndarray:
@@ -167,13 +185,17 @@ class LogisticRegressor(BaseRegressor):
         Returns: 
             Vector of gradients.
         """
-        # take the weights
-        w = np.dot(self.W, np.transpose(X))
+        # make a prediction based on feature values
 
-        # calculate the gradient using taken weights, then used to update weights
-        gradient = (
-            (-1 * y_true * np.exp(w * -1) + 1 - y_true) / (1 + np.exp(w * -1))
-        ) @ X
-        
-        #return mean derivative across samples
-        return gradient / len(X)
+        y_pred = self.make_prediction(X)
+
+        # calculate error
+
+        error = y_true - y_pred
+
+        # calculate the gradient by taking the dot product of values (transpose) and errors averaged
+
+        gradient = -1 * X.T.dot(error) / len(y_true)
+
+        return gradient
+

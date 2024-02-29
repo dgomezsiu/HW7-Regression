@@ -48,7 +48,7 @@ def test_loss_function():
 
     # calculate expected loss
 
-    expected_loss = -np.mean(y * np.log(y_pred) + (1 - y) * np.log(1 - y_pred))
+    expected_loss = -np.mean(y * np.log(y_pred) + (1 - y_pred) * np.log(1 - y_pred))
     calculated_loss = my_model.loss_function(y_true, y_pred)
 
 	# compare losses

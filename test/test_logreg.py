@@ -23,7 +23,7 @@ def test_prediction():
         y = np.array([0, 1, 1])
 
         # Your custom logistic regression
-        your_model = LogisticRegressor(num_feats=1)
+        your_model = regression.logreg.LogisticRegressor(num_feats=1)
         your_model.train_model(X, y, X, y)
         your_predictions = your_model.make_prediction(X)
 
@@ -34,7 +34,7 @@ def test_prediction():
 
         # Compare predictions
         np.testing.assert_array_equal(your_predictions, sklearn_predictions)
-		
+
 def test_loss_function():
 	pass
 

@@ -39,19 +39,17 @@ def test_prediction():
 		assert np.all(my_predictions == sklearn_predictions)
 
 def test_loss_function():
-    X = np.array([[1, 1], [2, 2], [3, 3]])
-    y = np.array([0, 1, 0])
+    y_true = np.array([0,1,0,1])
+    y_pred = np.array([0.1,0.9,0.1,0.9])
 
 	# my logistic regression
 
     my_model = regression.logreg.LogisticRegressor(num_feats=2)
-    my_model.train_model(X, y, X, y)
-    my_predictions = my_model.make_prediction(X)
 
     # calculate expected loss
 
-    expected_loss = -np.mean(y * np.log(my_predictions) + (1 - y) * np.log(1 - my_predictions))
-    calculated_loss = my_model.loss_function(y, my_predictions)
+    expected_loss = -np.mean(y * np.log(y_pred) + (1 - y) * np.log(1 - y_pred))
+    calculated_loss = my_model.loss_function(y_true, y_pred)
 
 	# compare losses
 

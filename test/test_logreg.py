@@ -19,20 +19,24 @@ import regression.logreg
 
 
 def test_prediction():
-  		X = np.array([[1, 1], [2, 2], [3, 3]])
-  		y = np.array([0, 1, 0])
+		X = np.array([[1, 1], [2, 2], [3, 3]])
+		y = np.array([0, 1, 0])
+
         # my logistic regression
-        my_model = regression.logreg.LogisticRegressor(num_feats=2)
-        my_model.train_model(X, y, X, y)
-        my_predictions = my_model.make_prediction(X)
+
+		my_model = regression.logreg.LogisticRegressor(num_feats=2)
+		my_model.train_model(X, y, X, y)
+		my_predictions = my_model.make_prediction(X)
 
         # Scikit-learn logistic regression
-        sklearn_model = SklearnLogisticRegression(solver='liblinear')
-        sklearn_model.fit(X, y)
-        sklearn_predictions = sklearn_model.predict(X)
+
+		sklearn_model = SklearnLogisticRegression(solver='liblinear')
+		sklearn_model.fit(X, y)
+		sklearn_predictions = sklearn_model.predict(X)
 
         # Compare predictions
-        assert np.all(my_predictions == sklearn_predictions)
+		
+		assert np.all(my_predictions == sklearn_predictions)
 
 def test_loss_function():
 	pass

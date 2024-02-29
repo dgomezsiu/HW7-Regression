@@ -33,7 +33,7 @@ def test_prediction():
         sklearn_predictions = sklearn_model.predict(X)
 
         # Compare predictions
-        np.testing.assert_array_equal(my_predictions, sklearn_predictions)
+        assert np.all(my_predictions == sklearn_predictions)
 
 def test_loss_function():
 	pass

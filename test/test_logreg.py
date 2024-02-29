@@ -22,10 +22,10 @@ def test_prediction():
         X = np.array([[0], [2], [3]])
         y = np.array([0, 1, 1])
 
-        # Your custom logistic regression
-        your_model = regression.logreg.LogisticRegressor(num_feats=1)
-        your_model.train_model(X, y, X, y)
-        your_predictions = your_model.make_prediction(X)
+        # my logistic regression
+        my_model = regression.logreg.LogisticRegressor(num_feats=1)
+        my_model.train_model(X, y, X, y)
+        my_predictions = my_model.make_prediction(X)
 
         # Scikit-learn logistic regression
         sklearn_model = SklearnLogisticRegression(solver='liblinear')
@@ -33,7 +33,7 @@ def test_prediction():
         sklearn_predictions = sklearn_model.predict(X)
 
         # Compare predictions
-        np.testing.assert_array_equal(your_predictions, sklearn_predictions)
+        np.testing.assert_array_equal(my_predictions, sklearn_predictions)
 
 def test_loss_function():
 	pass

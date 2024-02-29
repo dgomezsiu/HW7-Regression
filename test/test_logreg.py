@@ -19,9 +19,8 @@ import regression.logreg
 
 
 def test_prediction():
-    X = np.array([[1, 1], [2, 2], [3, 3]])
-    y = np.array([0, 1, 0])
-
+  		X = np.array([[1, 1], [2, 2], [3, 3]])
+  		y = np.array([0, 1, 0])
         # my logistic regression
         my_model = regression.logreg.LogisticRegressor(num_feats=2)
         my_model.train_model(X, y, X, y)

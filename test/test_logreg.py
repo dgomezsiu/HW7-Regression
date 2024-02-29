@@ -39,7 +39,20 @@ def test_prediction():
 		assert np.all(my_predictions == sklearn_predictions)
 
 def test_loss_function():
-	pass
+    X = np.array([[1, 1], [2, 2], [3, 3]])
+    y = np.array([0, 1, 0])
+
+	# my logistic regression
+
+    my_model = regression.logreg.LogisticRegressor(num_feats=2)
+    my_model.train_model(X, y, X, y)
+    my_predictions = my_model.make_prediction(X)
+
+    # calculate expected loss
+
+    expected_loss = -np.mean(y * np.log(my_predictions) + (1 - y) * np.log(1 - my_predictions))
+    calculated_loss = my_model.loss_function(y, my_predictions)
+    np.isclose(expected_loss, calculated_loss)
 
 def test_gradient():
 	pass

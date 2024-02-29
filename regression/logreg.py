@@ -145,7 +145,12 @@ class LogisticRegressor(BaseRegressor):
         Returns: 
             The mean loss (a single number).
         """
-        pass
+        # calculate binary cross entropy based on true and predicted labels
+        binary_cross_entropy = np.mean(
+            ((y_true * np.log(y_pred)) + 
+            ((1 - y_true) * np.log(1 - y_pred))) * -1
+        )
+        return binary_cross_entropy
         
     def calculate_gradient(self, y_true, X) -> np.ndarray:
         """

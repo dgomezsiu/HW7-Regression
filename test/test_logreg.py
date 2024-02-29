@@ -52,7 +52,10 @@ def test_loss_function():
 
     expected_loss = -np.mean(y * np.log(my_predictions) + (1 - y) * np.log(1 - my_predictions))
     calculated_loss = my_model.loss_function(y, my_predictions)
-    np.isclose(expected_loss, calculated_loss)
+
+	# compare losses
+
+    assert np.isclose(expected_loss, calculated_loss)
 
 def test_gradient():
 	pass

@@ -130,8 +130,8 @@ class LogisticRegressor(BaseRegressor):
             The predicted labels (y_pred) for given X.
         """
         # take the dot product of weights and transpose of input values X
-        
-        w = np.dog(self.W, np.transpose(X))
+
+        w = np.dot(self.W, np.transpose(X))
         return 1 / (1 + np.exp(w * -1))
     
     def loss_function(self, y_true, y_pred) -> float:
@@ -167,4 +167,13 @@ class LogisticRegressor(BaseRegressor):
         Returns: 
             Vector of gradients.
         """
-        pass
+        # take the weights
+        w = np.dot(self.W, np.transpose(X))
+
+        # calculate the gradient using taken weights, then used to update weights
+        gradient = (
+            (-1 * y_true * np.exp(w * -1) + 1 - y_true) / (1 + np.exp(w * -1))
+        ) @ X
+        
+        #return mean derivative across samples
+        return gradient / len(X)

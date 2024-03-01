@@ -59,7 +59,17 @@ def test_loss_function():
     assert np.isclose(expected_loss, calculated_loss)
 
 def test_gradient():
-	pass
+		X = np.array([[0], [2], [3]])
+		y = np.array([0, 1, 1])
+
+        # my logistic regression
+
+		my_model = regression.logreg.LogisticRegressor(num_feats=1)
+		my_model.train_model(X, y, X, y)
+		my_predictions = my_model.make_prediction(X)
+		calculated_gradient = my_model.calculate_gradient(y, X)
+
+		print(calculated_gradient)
 
 def test_training():
 	pass

@@ -17,6 +17,9 @@ from sklearn.linear_model import LogisticRegression as SklearnLogisticRegression
 import regression.utils
 import regression.logreg
 
+# set seed for rng
+
+np.random.seed(42)
 
 def test_prediction():
 		X = np.array([[0], [2], [3]])

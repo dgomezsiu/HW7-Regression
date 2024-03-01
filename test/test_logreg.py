@@ -75,4 +75,15 @@ def test_gradient():
 		assert np.isclose(calculated_gradient, expected_gradient)
 
 def test_training():
-	pass
+		X = np.array([[0], [2], [3]])
+		y = np.array([0, 1, 1])
+
+        # my logistic regression
+
+		my_model_1 = regression.logreg.LogisticRegressor(num_feats=1, max_iter=10)
+		my_model_1.train_model(X, y, X, y)
+
+		my_model_2 = regression.logreg.LogisticRegressor(num_feats=1, max_iter=20)
+		my_model_2.train_model(X, y, X, y)
+
+		assert my_model_1.W != my_model_2.W

@@ -69,7 +69,10 @@ def test_gradient():
 		my_predictions = my_model.make_prediction(X)
 		calculated_gradient = my_model.calculate_gradient(y, X)
 
-		print(calculated_gradient)
+		expected_error = y - my_predictions
+		expected_gradient = -1 * X.T.dot(expected_error) / len(y)
+
+		assert np.isclose(calculated_gradient, expected_gradient)
 
 def test_training():
 	pass

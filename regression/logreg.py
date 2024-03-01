@@ -143,7 +143,8 @@ class LogisticRegressor(BaseRegressor):
         
         # round predicted values to the nearest integer value and return
 
-        return np.asarray(np.rint(y_pred), dtype = 'int')
+        # return np.asarray(np.rint(y_pred), dtype = 'int')
+        return np.asarray(y_pred)
         
         
     

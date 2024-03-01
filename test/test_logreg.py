@@ -88,4 +88,6 @@ def test_training():
 		my_model_2 = regression.logreg.LogisticRegressor(num_feats=1, max_iter=20)
 		my_model_2.train_model(X, y, X, y)
 
-		assert np.all(my_model_1.W != my_model_2.W != my_initial_model.W)
+		assert np.all(my_model_1.W != my_model_2.W)
+		assert np.all(my_model_1.W != my_initial_model.W)
+		assert np.all(my_model_2.W != my_initial_model.W)
